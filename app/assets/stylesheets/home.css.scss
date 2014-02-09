@@ -1,0 +1,19 @@
+#cat{
+  tr td{
+    width: 150px;
+    height: 150px;
+  }
+  td:nth-child(2), tr:nth-child(2){
+    border: 1px solid grey;
+  }
+  tr:nth-child(2){
+    border-left: none;
+    border-right: none
+  }
+  td:nth-child(2){
+    border-top: none;
+    border-bottom: none;
+  }
+
+}
+
