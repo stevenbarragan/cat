@@ -10,18 +10,35 @@ class Move
 
     choices = []
 
-    best_score = 1
+    if player_one_turn(@moves)
+      best_score = -2
 
-    ((1..9).to_a - @moves).each do |move|
-      new_moves = @moves + [move]
+      available_moves(@moves).each do |move|
+        new_moves = @moves + [move]
 
-      score = alphabeta(new_moves, -1, 1)
+        score = minimax(new_moves)
 
-      if score > best_score
-        best_score = score
-        choices = [move]
-      elsif score == best_score
-        choices << move
+        if score > best_score
+          best_score = score
+          choices = [move]
+        elsif score == best_score
+          choices << move
+        end
+      end
+    else
+      best_score = 2
+
+      available_moves(@moves).each do |move|
+        new_moves = @moves + [move]
+
+        score = minimax(new_moves)
+
+        if score < best_score
+          best_score = score
+          choices = [move]
+        elsif score == best_score
+          choices << move
+        end
       end
     end
 

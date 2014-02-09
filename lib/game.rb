@@ -30,7 +30,7 @@ module Game
   end
 
   def alphabeta(moves, alpha, beta)
-    if moves.size == 9
+    if draw(moves)
       return 0
     else
       moves1 , moves2 = split_movements(moves)
@@ -68,9 +68,45 @@ module Game
 
 
   def minimax(moves)
+    return 0 if draw(moves)
+
+    moves1 , moves2 = split_movements(moves)
+
+    return 1 if win_path(moves1)
+    return -1 if win_path(moves2)
+
+    if player_one_turn(moves)
+      best_score = -2
+
+      available_moves(moves).each do |move|
+        score = minimax(moves + [move])
+
+        best_score = score if score > best_score
+      end
+
+      best_score
+    else
+      best_score = 2
+
+      available_moves(moves).each do |move|
+        score = minimax(moves + [move])
+
+        best_score = score if score < best_score
+      end
+
+      best_score
+    end
   end
 
   def draw(moves)
     moves.size == 9
+  end
+
+  def available_moves(moves = @moves)
+    (1..9).to_a - moves
+  end
+
+  def player_one_turn(moves)
+    moves.size.even?
   end
 end
