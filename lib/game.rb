@@ -33,10 +33,10 @@ module Game
     if moves.size == 9
       return 0
     else
-      moves1 , moves2 = Game.split_movements(moves)
+      moves1 , moves2 = split_movements(moves)
 
-      return 1  if Game.win_path(moves1)
-      return -1 if Game.win_path(moves2)
+      return 1  if win_path(moves1)
+      return -1 if win_path(moves2)
     end
 
     available_moves = (1..9).to_a - moves
@@ -64,5 +64,13 @@ module Game
 
       return beta
     end
+  end
+
+
+  def minimax(moves)
+  end
+
+  def draw(moves)
+    moves.size == 9
   end
 end
