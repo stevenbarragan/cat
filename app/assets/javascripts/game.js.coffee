@@ -7,7 +7,7 @@ class Game
       $('#cat td').each (index, td)=>
         _td = $(td)
         _td.click (elem)=>
-          @click(_td, index)
+          @click(_td, index + 1)
 
   click: (td , value)->
     if value not in @moves && @player_turn()
@@ -17,7 +17,16 @@ class Game
       @play_computer()
 
   play_computer: ->
+    $.post('/next_move',
+      moves: @moves
+    ).done (data) =>
+      @move_computer(data.next)
+
+  move_computer: (move) ->
     @switch_turn()
+    @moves.push move
+    td = $.find('td')[move - 1]
+    $(td).html('X')
 
   player_turn: ->
     not @turn
