@@ -1,25 +1,54 @@
-.panel.panel-default
-  .panel-body
+.row
+  .col-md-6
     .row
-      .col-md-6
-        %table#cat
-          %tbody
-            %tr
-              %td
-              %td
-              %td
-            %tr
-              %td
-              %td
-              %td
-            %tr
-              %td
-              %td
-              %td
-      .col-md-6
-        .row.switch-row
-          .col-md-3.switch-wrapper
-            %button.switch.btn.btn-default Switch player
-          .col-md-9
-            %h1.player_name First player: You
-
+      %table#cat
+        %tbody
+          %tr
+            %td
+            %td
+            %td
+          %tr
+            %td
+            %td
+            %td
+          %tr
+            %td
+            %td
+            %td
+    .row.start-wrapper
+      %button.btn.btn-warning.col-md-9.start
+        %h1 Start game
+  .col-md-6
+    .row.switch-row
+      .col-md-3.switch-wrapper
+        %button.switch.btn.btn-default Switch player
+      .col-md-9
+        %h1.player_name First player: Computer
+    .row
+      %table#score.col-md-11
+        %tbody
+          %tr
+            %td.indicatorX
+            %td
+              %h1 Computer
+            %td
+              %h1.score1 0
+          %tr
+            %td.indicatorO
+            %td
+              %h1 You
+            %td
+              %h1.score2 0
+          %tr
+            %td
+            %td
+              %h1 Ties
+            %td
+              %h1.score0 0
+    .row
+      .alert.alert-danger.alert1
+        Bad luck!! Try again!!
+      .alert.alert2.alert-success
+        Nice!! Well done!! Could you do it again?
+      .alert.alert-warning.alert0
+        Bad luck for the two of us!! Let's try again.

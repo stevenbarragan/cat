@@ -1,4 +1,5 @@
 #cat{
+  margin: 10px;
   tr td{
     width: 150px;
     height: 150px;
@@ -28,4 +29,18 @@
 }
 .switch{
   margin: 23px 10px
+}
+.start-wrapper{
+  text-align: center;
+}
+.start{
+  margin: 50px 20px;
+}
+.indicatorX, .indicatorO{
+  width: 60px;
+  padding-top: 11px;
+  text-align: center;
+}
+.alert{
+  display: none;
 }

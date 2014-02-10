@@ -12,7 +12,7 @@ class Move
       1
     elsif win_path(player2)
       2
-    elsif @moves.size == 9
+    elsif @moves.size == 10
       0
     end
   end
