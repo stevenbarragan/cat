@@ -6,9 +6,10 @@ class Game
         _td.click (elem)=>
           @click(_td, index + 1)
 
+      @loader = $('.loading').remove()
+
   turn: true
   moves: []
-  loader: '<img src="/assets/ajax-loader.gif">'
   playing: false
 
   start: ->
