@@ -10,7 +10,7 @@ module Game
     win_path(moves1) || win_path(moves2)
   end
 
-  def split_movements(path)
+  def split_movements(path = @moves)
     m = path.each_slice(2).to_a
     m[-1] = m[-1] << nil if m[-1].size == 1
     m.transpose.map(&:compact)

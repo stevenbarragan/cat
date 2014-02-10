@@ -5,6 +5,18 @@ class Move
     @moves = moves
   end
 
+  def status
+    player1 , player2 = split_movements
+
+    if win_path(player1)
+      1
+    elsif win_path(player2)
+      2
+    elsif @moves.size == 9
+      0
+    end
+  end
+
   def next
     return [1,3,7,9].sample if @moves.empty?
 
@@ -42,6 +54,9 @@ class Move
       end
     end
 
-    choices.sample
+    chosed = choices.sample
+    @moves << chosed
+
+    chosed
   end
 end

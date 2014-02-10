@@ -20,7 +20,10 @@ class Game
     $.post('/next_move',
       moves: @moves
     ).done (data) =>
-      @move_computer(data.next)
+      @move_computer(data.next) if data.next
+
+      if data.status
+        alert data.status
 
   move_computer: (move) ->
     @switch_turn()
