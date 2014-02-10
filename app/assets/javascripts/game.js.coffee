@@ -1,23 +1,31 @@
 class Game
-  turn: 'X'
+  turn: false #machine turn
+  moves: []
 
   constructor: ->
     $('document').ready =>
-      index = 1
-
       $('#cat td').each (index, td)=>
         _td = $(td)
         _td.click (elem)=>
-          @click(index)
+          @click(_td, index)
 
-        _td.hover(
-          =>
-            _td.html(@turn) unless _td.data('blocked')
-          =>
-            _td.html('') unless _td.data('blocked')
-        )
+  click: (td , value)->
+    if value not in @moves && @player_turn()
+      td.html('O')
+      @moves.push value
+      @switch_turn()
+      @play_computer()
 
-  click: (value)->
-    console.log value
+  play_computer: ->
+    @switch_turn()
+
+  player_turn: ->
+    not @turn
+
+  computer_turn: ->
+    @turn
+
+  switch_turn: ->
+    @turn = not @turn
 
 Window.Game = new Game
