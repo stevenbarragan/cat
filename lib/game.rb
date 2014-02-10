@@ -11,7 +11,7 @@ module Game
   end
 
   def split_movements(path = @moves)
-    if @moves.size > 0
+    if path.size > 0
       m = path.each_slice(2).to_a
       m[-1] = m[-1] << nil if m[-1].size == 1
       m.transpose.map(&:compact)
@@ -32,44 +32,6 @@ module Game
       [3,5,7]
     ]
   end
-
-  def alphabeta(moves, alpha, beta)
-    if draw(moves)
-      return 0
-    else
-      moves1 , moves2 = split_movements(moves)
-
-      return 1  if win_path(moves1)
-      return -1 if win_path(moves2)
-    end
-
-    available_moves = (1..9).to_a - moves
-
-    if moves.size.even?
-      available_moves.each do |move|
-        new_moves = moves + [move]
-
-        score = alphabeta(new_moves, alpha, beta)
-
-        alpha = score if score > alpha
-        break if alpha >= beta
-      end
-
-      return alpha
-    else
-      available_moves.each do |move|
-        new_moves = moves + [move]
-
-        score = alphabeta(new_moves, alpha, beta)
-
-        beta = score if score < beta
-        break beta if alpha >= beta
-      end
-
-      return beta
-    end
-  end
-
 
   def minimax(moves)
     return 0 if draw(moves)

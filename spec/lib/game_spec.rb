@@ -17,7 +17,7 @@ describe Game do
     end
 
     context 'a colums' do
-      let(:path){ [2,5,8,1]}
+      let(:path){ [2,5,8,1] }
 
       it 'returns true' do
         expect(subject.win_path(path)).to be_true
