@@ -1,16 +1,25 @@
 .panel.panel-default
   .panel-body
-    %table#cat
-      %tbody
-        %tr
-          %td
-          %td
-          %td
-        %tr
-          %td
-          %td
-          %td
-        %tr
-          %td
-          %td
-          %td
+    .row
+      .col-md-6
+        %table#cat
+          %tbody
+            %tr
+              %td
+              %td
+              %td
+            %tr
+              %td
+              %td
+              %td
+            %tr
+              %td
+              %td
+              %td
+      .col-md-6
+        .row.switch-row
+          .col-md-3.switch-wrapper
+            %button.switch.btn.btn-default Switch player
+          .col-md-9
+            %h1.player_name First player: You
+

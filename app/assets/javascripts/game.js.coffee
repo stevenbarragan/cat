@@ -40,4 +40,4 @@ class Game
   switch_turn: ->
     @turn = not @turn
 
-Window.Game = new Game
+window.Game = new Game
