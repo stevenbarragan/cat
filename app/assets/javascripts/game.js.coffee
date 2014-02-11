@@ -5,6 +5,7 @@ class @Game
     @player_index = 0
 
     $('document').ready =>
+      @loader = $('.loading').first().remove()
       $('.start').click =>
         @start()
       $('.switch').click =>
@@ -15,11 +16,15 @@ class @Game
   player: ->
     @players[@player_index]
 
+  first_player: ->
+    @players[@first]
+
   start: ->
     @moves =  []
     @player_index = @first
     @lockButtons()
-    @player().play()
+    @first_player().turn = true
+    @first_player().play()
 
   finish: ->
     @update_gif()
