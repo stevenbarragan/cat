@@ -18,7 +18,16 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
-    .container
-      = yield
+    #wrap
+      .container
+        = yield
+    #footer.footer
+      .container
+        %p.text-muted
+          Steven© 2014
+          %br/
+          %a{href: "mailto:me@steven.mx"} me@steven.mx
+          |
+          %a{href: "https://twitter.com/steven_barragan"} @steven_barragan
     = javascript_include_tag '//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js'
     = analytics_init if Rails.env.production?
