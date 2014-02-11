@@ -51,7 +51,7 @@ class @Game
         if status == 1
           @players[@first].update_score()
         else
-          @players[if @first = 0 then 1 else 0].update_score()
+          @players[if @first == 0 then 1 else 0].update_score()
 
       @finish()
 
