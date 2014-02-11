@@ -34,12 +34,11 @@ module Game
   end
 
   def minimax(moves)
-    return 0 if draw(moves)
-
     moves1 , moves2 = split_movements(moves)
 
     return 1 if win_path(moves1)
-    return -1 if win_path(moves2)
+    return 0 if win_path(moves2)
+    return -1 if draw(moves)
 
     if player_one_turn(moves)
       best_score = -2

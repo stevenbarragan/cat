@@ -19,6 +19,7 @@ class Move
 
   def next
     return [1,3,7,9].sample if @moves.empty?
+    return 5 if @moves.size == 1 && !@moves.include?(5)
 
     choices = []
 
