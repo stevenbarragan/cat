@@ -1,9 +1,6 @@
-class @Human
+class @Human extends Player
   name: 'Human'
   char: 'O'
-  turn: false
-  score: 0
-  first: false
 
   constructor: ->
     $('document').ready =>
@@ -21,16 +18,3 @@ class @Human
     @turn = true
     @update_gif()
 
-  update_board: (pos)->
-    Game.moves.push pos
-    td = $('#cat').find('td')[pos - 1]
-    $(td).html(@char)
-
-  update_gif: ->
-    $(".indicatorO").html(Game.loader)
-    $(".indicatorX").html('')
-
-  update_score: ->
-    @score += 1
-    $(".score#{ @char }").html( @score )
-    $(".alert#{ @char }").show()
