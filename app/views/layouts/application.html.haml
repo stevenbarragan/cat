@@ -21,3 +21,4 @@
     .container
       = yield
     = javascript_include_tag '//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js'
+    = analytics_init if Rails.env.production?

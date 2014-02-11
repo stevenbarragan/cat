@@ -78,3 +78,5 @@ Cat::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 end
+
+GA.tracker = "UA-29744528-2"
