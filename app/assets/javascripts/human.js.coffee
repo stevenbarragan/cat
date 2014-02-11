@@ -10,11 +10,10 @@ class @Human extends Player
           @done(_td, index + 1)
 
   done: (td , value)->
-    if value not in Game.moves && @turn
+    if @turn && value not in Game.moves
       @update_board(value)
       Game.switch_turn()
 
   play: ->
-    @turn = true
     @update_gif()
 

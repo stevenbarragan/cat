@@ -1,10 +1,14 @@
 class @Player
+  constructor: ->
+    $('document').ready =>
+      @loader = $('.loading').remove()
+
   turn: false
   score: 0
 
   update_gif: ->
     $(".indicatorX, .indicatorO").html('')
-    $(".indicator#{ @char }").html(Game.loader)
+    $(".indicator#{ @char }").html(@loader)
 
   update_score: ->
     @score += 1

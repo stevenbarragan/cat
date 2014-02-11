@@ -4,12 +4,13 @@ class @Computer extends Player
   score: 0
 
   play: ->
-    @update_gif()
-    $.post('/next_move',
-      moves: Game.moves
-    ).done (data) =>
-      @done(data.next)
-      Game.process_status(data.status)
+    if @turn
+      @update_gif()
+      $.post('/next_move',
+        moves: Game.moves
+      ).done (data) =>
+        @done(data.next)
+        Game.process_status(data.status)
 
   done: (move) ->
     if move

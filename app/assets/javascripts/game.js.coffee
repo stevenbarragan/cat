@@ -5,7 +5,6 @@ class @Game
     @player_index = 0
 
     $('document').ready =>
-      @loader = $('.loading').remove()
       $('.start').click =>
         @start()
       $('.switch').click =>
@@ -52,7 +51,9 @@ class @Game
       @finish()
 
   switch_turn: ->
+    @player().turn = false
     @player_index = if @player_index == 0 then 1 else 0
+    @player().turn = true
     @player().play()
 
   switch_first: ->
