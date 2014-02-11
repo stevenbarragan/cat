@@ -5,7 +5,7 @@ class Move
     @moves = moves
   end
 
-  def status
+  def get_status
     player1 , player2 = split_movements
 
     if win_path(player1)
@@ -17,47 +17,52 @@ class Move
     end
   end
 
+  def status
+    @status ||= get_status
+  end
+
   def next
-    return [1,3,7,9].sample if @moves.empty?
-    return 5 if @moves.size == 1 && !@moves.include?(5)
+    unless status
+      return [1,3,7,9].sample if @moves.empty?
 
-    choices = []
+      choices = []
 
-    if player_one_turn(@moves)
-      best_score = -2
+      if player_one_turn(@moves)
+        best_score = -10
 
-      available_moves(@moves).each do |move|
-        new_moves = @moves + [move]
+        available_moves(@moves).each do |move|
+          new_moves = @moves + [move]
 
-        score = minimax(new_moves)
+          score = minimax(new_moves)
 
-        if score > best_score
-          best_score = score
-          choices = [move]
-        elsif score == best_score
-          choices << move
+          if score > best_score
+            best_score = score
+            choices = [move]
+          elsif score == best_score
+            choices << move
+          end
+        end
+      else
+        best_score = 10
+
+        available_moves(@moves).each do |move|
+          new_moves = @moves + [move]
+
+          score = minimax(new_moves)
+
+          if score < best_score
+            best_score = score
+            choices = [move]
+          elsif score == best_score
+            choices << move
+          end
         end
       end
-    else
-      best_score = 2
 
-      available_moves(@moves).each do |move|
-        new_moves = @moves + [move]
+      chosed = choices.sample
+      @moves << chosed
 
-        score = minimax(new_moves)
-
-        if score < best_score
-          best_score = score
-          choices = [move]
-        elsif score == best_score
-          choices << move
-        end
-      end
+      chosed
     end
-
-    chosed = choices.sample
-    @moves << chosed
-
-    chosed
   end
 end
