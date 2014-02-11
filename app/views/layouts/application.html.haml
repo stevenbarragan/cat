@@ -19,6 +19,10 @@
     = csrf_meta_tags
   %body
     #wrap
+      %nav.navbar.navbar-default.navbar-fixed-top{role: "navigation"}
+        .container
+          %a.navbar-brand{href: "#"} Cat tic-tac-toe
+          .navbar-text I challenge you to win
       .container
         = yield
     #footer.footer
