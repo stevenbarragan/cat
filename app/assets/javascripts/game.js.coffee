@@ -1,77 +1,65 @@
-class Game
+class @Game
   constructor: ->
+    @players = [new Computer, new Human]
+    @first = 0
+    @player_index = 0
+
     $('document').ready =>
-      $('#cat td').each (index, td)=>
-        _td = $(td)
-        _td.click (elem)=>
-          @click(_td, index + 1)
-
       @loader = $('.loading').remove()
+      $('.start').click =>
+        @start()
+      $('.switch').click =>
+        @switch_first()
 
-  turn: true
   moves: []
-  playing: false
+
+  player: ->
+    @players[@player_index]
 
   start: ->
-    $('.start, .switch').attr('disabled', true);
-    $('td#score:first-child').html('')
-    $('#cat td').html('')
-
     @moves =  []
-    @playing = true
-    $('.alert').hide()
-    @update_gif()
-    if @computer_turn()
-      @play_computer()
+    @player_index = @first
+    @lockButtons()
+    @player().play()
 
   finish: ->
-    @playing = false
-    $('.btn').removeAttr('disabled')
     @update_gif()
+    @unlockButtons()
+    @players[0].turn = false
+    @players[1].turn = false
+    @switch_first()
 
-  click: (td , value)->
-    if value not in @moves && @player_turn()
-      td.html('O')
-      @moves.push value
-      @switch_turn()
-      @play_computer()
+  lockButtons: ->
+    $('.start, .switch').attr('disabled', true);
+    $('#cat td').html('')
+    $('.alert').hide()
 
-  play_computer: ->
-    $.post('/next_move',
-      moves: @moves
-    ).done (data) =>
-      @move_computer(data.next) if data.next
-      @process_status(data.status)
+  unlockButtons: ->
+    $('.btn').removeAttr('disabled')
 
   process_status: (status)->
     if status?
-      score = parseInt $(".score#{ status }").html()
-      $(".score#{ status }").html( score + 1 )
-      $(".alert#{ status }").show()
+      if status == 0
+        score = parseInt $(".score3").html()
+        $(".score3").html( score + 1 )
+        $(".alert3").show()
+      else
+        if status == 1
+          @players[@first].update_score()
+        else
+          @players[if @first = 0 then 1 else 0].update_score()
+
       @finish()
 
-  move_computer: (move) ->
-    @switch_turn()
-    @moves.push move
-    td = $.find('td')[move - 1]
-    $(td).html('X')
-
-  player_turn: ->
-    not @turn
-
-  computer_turn: ->
-    @turn
-
   switch_turn: ->
-    @turn = not @turn
-    @update_gif()
+    @player_index = if @player_index == 0 then 1 else 0
+    @player().play()
+
+  switch_first: ->
+    @first = if @first == 0 then 1 else 0
+    $('.player_name').html("First player: #{ @players[@first].name }")
 
   update_gif: ->
     $('.indicatorX, .indicatorO').html('')
-    if @playing
-      $(".indicator#{ @char() }").html(@loader)
-
-  char: ->
-    if @computer_turn() then 'X' else 'O'
 
 window.Game = new Game
