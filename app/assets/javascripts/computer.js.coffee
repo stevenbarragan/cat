@@ -2,6 +2,7 @@ class @Computer extends Player
   name: 'Computer'
   char: 'X'
   score: 0
+  color: '#a94442'
 
   play: ->
     if @turn
@@ -10,7 +11,7 @@ class @Computer extends Player
         moves: Game.moves
       ).done (data) =>
         @done(data.next)
-        Game.process_status(data.status)
+        Game.process_status(data.status, data.win_path)
 
   done: (move) ->
     if move

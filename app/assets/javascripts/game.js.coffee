@@ -23,6 +23,7 @@ class @Game
     @moves =  []
     @player_index = @first
     @lockButtons()
+    @unhighliht_winning_path()
     @first_player().turn = true
     @first_player().play()
 
@@ -41,19 +42,34 @@ class @Game
   unlockButtons: ->
     $('.btn').removeAttr('disabled')
 
-  process_status: (status)->
+  process_status: (status, win_path)->
     if status?
       if status == 0
         score = parseInt $(".score3").html()
         $(".score3").html( score + 1 )
         $(".alert3").show()
       else
-        if status == 1
-          @players[@first].update_score()
-        else
-          @players[if @first == 0 then 1 else 0].update_score()
+        winner = @winner(status)
+        @highlight_winning_path(win_path, winner.color)
+        winner.update_score()
 
       @finish()
+
+  winner: (player_turn)->
+    if player_turn == 1
+      @players[@first]
+    else
+      @players[if @first == 0 then 1 else 0]
+
+
+  highlight_winning_path: (path, color)->
+    if path
+      for position in path
+        td = $('#cat').find('td')[position - 1]
+        $(td).css('color', color)
+
+  unhighliht_winning_path: ->
+    $('#cat td').css('color', '#333' )
 
   switch_turn: ->
     @player().turn = false
