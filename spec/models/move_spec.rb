@@ -44,4 +44,32 @@ describe Move do
       end
     end
   end
+
+  context '#status' do
+    let(:subject){ described_class.new(moves) }
+
+    context 'player 1 wins' do
+      let(:moves){ [1,2,5,3,9]}
+
+      it 'returns 1' do
+        expect(subject.status).to eq 1
+      end
+    end
+
+    context 'player 2 wins' do
+      let(:moves){ [1,2,3,5,7,8]}
+
+      it 'returns 1' do
+        expect(subject.status).to eq 2
+      end
+    end
+
+    context 'any player win' do
+      let(:moves){ [1,5,9,2,8,6,4,7,3]}
+
+      it 'returns 1' do
+        expect(subject.status).to eq 0
+      end
+    end
+  end
 end
