@@ -72,4 +72,32 @@ describe Move do
       end
     end
   end
+
+  context '#win_path' do
+    let(:subject){ described_class.new( moves )}
+
+    context 'diagonal' do
+      let(:moves){ [1,2,3,4,5,6,7,8,9] }
+
+      it 'returns the diagonal' do
+        expect(subject.win_path).to eq [1,5,9]
+      end
+    end
+
+    context 'row' do
+      let(:moves){ [1,4,2,5,9,6] }
+
+      it 'returns the row' do
+        expect(subject.win_path).to eq [4,5,6]
+      end
+    end
+
+    context 'column' do
+      let(:moves){ [1,2,4,5,7] }
+
+      it 'returns the colum' do
+        expect(subject.win_path).to eq [1,4,7]
+      end
+    end
+  end
 end

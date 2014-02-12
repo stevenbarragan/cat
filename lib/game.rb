@@ -5,6 +5,16 @@ module Game
     end
   end
 
+  def win_path
+    moves = split_movements
+
+    moves.each do |move|
+      win_paths.each do |win_path|
+        return win_path if (win_path - move).empty?
+      end
+    end
+  end
+
   def win_paths?(path)
     moves1, moves2 = split_movements(path)
     win_path?(moves1) || win_path?(moves2)

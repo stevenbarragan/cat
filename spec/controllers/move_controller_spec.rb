@@ -8,10 +8,17 @@ describe MoveController do
     expect(body["next"]).to be_true
   end
 
-  it 'render a status in json' do
+  it 'render status in json' do
     post :create, moves: [1,2,3,4,5,6,7,8]
 
     body = JSON.parse(response.body)
     expect(body["status"]).to be_true
+  end
+
+  it 'render the winning path in json' do
+    post :create, moves: [1,4,2,5,3]
+
+    body = JSON.parse(response.body)
+    expect(body["win_path"]).to eq [1,2,3]
   end
 end
