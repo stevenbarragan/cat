@@ -13,6 +13,7 @@ module Game
         return win_path if (win_path - move).empty?
       end
     end
+    false
   end
 
   def win_paths?(path)

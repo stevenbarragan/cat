@@ -99,5 +99,13 @@ describe Move do
         expect(subject.win_path).to eq [1,4,7]
       end
     end
+
+    context 'without a winning path' do
+      let(:moves){ [1,5,9,2,8,6,4,7,3]}
+
+      it 'returns the colum' do
+        expect(subject.win_path).not_to be_true
+      end
+    end
   end
 end
