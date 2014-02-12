@@ -8,9 +8,9 @@ class Move
   def get_status
     player1 , player2 = split_movements
 
-    if win_path(player1)
+    if win_path?(player1)
       1
-    elsif win_path(player2)
+    elsif win_path?(player2)
       2
     elsif @moves.size > 8
       0

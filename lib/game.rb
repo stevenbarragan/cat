@@ -1,5 +1,5 @@
 module Game
-  def win_path(path)
+  def win_path?(path)
     win_paths.any? do |win_path|
       win_path.all?{ |x| path.include? x }
     end
@@ -7,7 +7,7 @@ module Game
 
   def win_paths?(path)
     moves1, moves2 = split_movements(path)
-    win_path(moves1) || win_path(moves2)
+    win_path?(moves1) || win_path?(moves2)
   end
 
   def split_movements(path = @moves)
@@ -36,8 +36,8 @@ module Game
   def minimax(moves)
     moves1, moves2 = split_movements(moves)
 
-    return 10 - moves.size  if win_path(moves1)
-    return 0 - moves.size   if win_path(moves2)
+    return 10 - moves.size  if win_path?(moves1)
+    return 0 - moves.size   if win_path?(moves2)
     return 0 if draw(moves)
 
     if player_one_turn(moves)

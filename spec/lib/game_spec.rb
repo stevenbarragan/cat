@@ -7,12 +7,12 @@ end
 describe Game do
   let(:subject){ Dummy.new }
 
-  context '#win_path' do
+  context '#win_path?' do
     context 'a row' do
       let(:path){ [1,2,3,5]}
 
       it 'returns true' do
-        expect(subject.win_path(path)).to be_true
+        expect(subject.win_path?(path)).to be_true
       end
     end
 
@@ -20,7 +20,7 @@ describe Game do
       let(:path){ [2,5,8,1] }
 
       it 'returns true' do
-        expect(subject.win_path(path)).to be_true
+        expect(subject.win_path?(path)).to be_true
       end
     end
 
@@ -28,7 +28,7 @@ describe Game do
       let(:path){ [1,5,9,4]}
 
       it 'returns true' do
-        expect(subject.win_path(path)).to be_true
+        expect(subject.win_path?(path)).to be_true
       end
     end
   end
@@ -46,7 +46,7 @@ describe Game do
       let(:path){ [1,2,4,5,6,8]}
 
       it 'returns true' do
-        expect(subject.win_path(path)).to be_true
+        expect(subject.win_path?(path)).to be_true
       end
     end
 
@@ -54,7 +54,7 @@ describe Game do
       let(:path){ [1,4,5,2,9]}
 
       it 'returns true' do
-        expect(subject.win_path(path)).to be_true
+        expect(subject.win_path?(path)).to be_true
       end
     end
 
@@ -62,7 +62,7 @@ describe Game do
       let(:path){ [9,5,1,7,3,2,6] }
 
       it 'returns true' do
-        expect(subject.win_path(path)).to be_true
+        expect(subject.win_path?(path)).to be_true
       end
     end
 
@@ -70,7 +70,7 @@ describe Game do
       let(:path){ [1,6,2,7,3] }
 
       it 'returns true' do
-        expect(subject.win_path(path)).to be_true
+        expect(subject.win_path?(path)).to be_true
       end
     end
   end
