@@ -65,8 +65,7 @@ class @Game
   highlight_winning_path: (path, color)->
     if path
       for position in path
-        td = $('#cat').find('td')[position - 1]
-        $(td).css('color', color)
+        $("#cat td:eq(#{position -1})").css('color', color)
 
   unhighliht_winning_path: ->
     $('#cat td').css('color', '#333' )

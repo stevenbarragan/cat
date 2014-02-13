@@ -13,6 +13,5 @@ class @Player
 
   update_board: (pos)->
     Game.moves.push pos
-    td = $('#cat').find('td')[pos - 1]
-    $(td).html(@char)
+    $("#cat td:eq(#{pos - 1})").html(@char)
 
