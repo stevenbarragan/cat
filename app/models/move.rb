@@ -1,68 +1,86 @@
 class Move
   include Game
+  attr_accessor :move, :score
 
-  def initialize(moves)
+  def initialize(moves = [], score = nil)
     @moves = moves
+    @move  = @moves.last
+    @score = score
+    @choices = []
   end
 
-  def get_status
-    player1 , player2 = split_movements
+  def calculate_payers_path
+    @player_one_moves , @player_two_moves = split_movements
+  end
 
-    if win_path?(player1)
-      1
-    elsif win_path?(player2)
-      2
-    elsif @moves.size > 8
-      0
-    end
+  def draw?
+    @moves.size > 8
   end
 
   def status
-    @status ||= get_status
+     @status ||= get_status
+  end
+
+  def corners
+    [1,3,7,9].map{ |move| Move.new [move], 10 }
+  end
+
+  def score
+    @score ||= get_score
+  end
+
+  def get_score
+    if status
+      calculate_value_from_status
+    else
+      if @moves.empty?
+        @choices = corners
+        return @choices.first.score
+      end
+
+      nexts = []
+
+      available_moves.each do |move|
+        nexts << Move.new(@moves + [move])
+      end
+
+      if player_one_turn
+        move = nexts.max_by{ |move| move.score }
+      else
+        move = nexts.min_by{ |move| move.score }
+      end
+
+      @choices = nexts.select{ |next_move| next_move.score == move.score }
+
+      move.score
+    end
   end
 
   def next
-    unless status
-      return [1,3,7,9].sample if @moves.empty?
+    if score
+      random = @choices.sample
+      random ? random.move : nil
+    end
+  end
 
-      choices = []
+  private
 
-      if player_one_turn(@moves)
-        best_score = -10
+  def get_status
+    calculate_payers_path
 
-        available_moves(@moves).each do |move|
-          new_moves = @moves + [move]
+    return 1 if win_path? @player_one_moves
+    return 2 if win_path? @player_two_moves
+    return 0 if draw?
+  end
 
-          score = minimax(new_moves)
-
-          if score > best_score
-            best_score = score
-            choices = [move]
-          elsif score == best_score
-            choices << move
-          end
-        end
-      else
-        best_score = 10
-
-        available_moves(@moves).each do |move|
-          new_moves = @moves + [move]
-
-          score = minimax(new_moves)
-
-          if score < best_score
-            best_score = score
-            choices = [move]
-          elsif score == best_score
-            choices << move
-          end
-        end
-      end
-
-      chosed = choices.sample
-      @moves << chosed
-
-      chosed
+  def calculate_value_from_status
+    case @status
+    when 1
+      @moves.size
+    when 2
+      - @moves.size
+    when 0
+      0
     end
   end
 end

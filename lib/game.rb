@@ -13,6 +13,7 @@ module Game
         return win_path if (win_path - move).empty?
       end
     end
+
     false
   end
 
@@ -44,45 +45,15 @@ module Game
     ]
   end
 
-  def minimax(moves)
-    moves1, moves2 = split_movements(moves)
-
-    return 10 - moves.size  if win_path?(moves1)
-    return 0 - moves.size   if win_path?(moves2)
-    return 0 if draw(moves)
-
-    if player_one_turn(moves)
-      best_score = -2
-
-      available_moves(moves).each do |move|
-        score = minimax(moves + [move])
-
-        best_score = score if score > best_score
-      end
-
-      best_score
-    else
-      best_score = 2
-
-      available_moves(moves).each do |move|
-        score = minimax(moves + [move])
-
-        best_score = score if score < best_score
-      end
-
-      best_score
-    end
-  end
-
   def draw(moves)
     moves.size == 9
   end
 
-  def available_moves(moves = @moves)
-    (1..9).to_a - moves
+  def available_moves
+    (1..9).to_a - @moves
   end
 
-  def player_one_turn(moves)
-    moves.size.even?
+  def player_one_turn
+    @moves.size.even?
   end
 end

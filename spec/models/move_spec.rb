@@ -23,7 +23,7 @@ describe Move do
     context 'second move' do
       let(:moves){ [1,5,9,7] }
 
-      it 'returns one corner' do
+      it 'returns corner to make a fork' do
         expect(subject.next).to eq 3
       end
     end
@@ -41,6 +41,14 @@ describe Move do
 
       it 'returns one corner' do
         expect(subject.next).to be_in [2,4,6,8]
+      end
+    end
+
+   context 'block win' do
+      let(:moves){ [1,5,9,2] }
+
+      it 'returns one corner' do
+        expect(subject.next).to eq 8
       end
     end
   end
