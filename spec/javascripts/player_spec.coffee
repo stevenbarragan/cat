@@ -2,6 +2,7 @@ describe '@Player', ->
   beforeEach ->
     @subject = new Player
     @subject.char = '0'
+    Game.moves = []
 
   describe '#update_gif', ->
     it 'moves gift to 0 posisition', ->
@@ -17,4 +18,3 @@ describe '@Player', ->
     it 'updates game moves', ->
       @subject.update_board(1)
       expect(Game.moves[0]).toEqual 1
-

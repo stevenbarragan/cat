@@ -1,7 +1,7 @@
 class @Human extends Player
-  name: 'Human'
-  char: 'O'
-  color: '#dff0d8'
+  name:   'Human'
+  char:   'O'
+  color:  '#dff0d8'
 
   constructor: ->
     $('document').ready =>
