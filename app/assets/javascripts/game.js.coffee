@@ -73,6 +73,7 @@ class @Game
   switch_turn: ->
     @player().turn = false
     @player_index = if @player_index == 0 then 1 else 0
+
     @player().turn = true
     @player().play()
 

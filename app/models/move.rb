@@ -13,12 +13,8 @@ class Move
     @player_one_moves , @player_two_moves = split_movements
   end
 
-  def draw?
-    @moves.size > 8
-  end
-
   def status
-     @status ||= get_status
+     get_status
   end
 
   def corners
@@ -44,6 +40,8 @@ class Move
         nexts << Move.new(@moves + [move])
       end
 
+      nexts.map &:score
+
       if player_one_turn
         move = nexts.max_by{ |move| move.score }
       else
@@ -59,7 +57,10 @@ class Move
   def next
     if score
       random = @choices.sample
-      random ? random.move : nil
+      if random
+        @moves << random.move
+        @moves.last
+      end
     end
   end
 
@@ -74,11 +75,11 @@ class Move
   end
 
   def calculate_value_from_status
-    case @status
+    case status
     when 1
-      @moves.size
+      10 - @moves.size + 1
     when 2
-      - @moves.size
+      - (@moves.size + 1)
     when 0
       0
     end

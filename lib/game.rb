@@ -45,8 +45,8 @@ module Game
     ]
   end
 
-  def draw(moves)
-    moves.size == 9
+  def draw?
+    @moves.size == 9
   end
 
   def available_moves
