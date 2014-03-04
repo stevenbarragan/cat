@@ -16,5 +16,5 @@
 //= require player
 //= require computer
 //= require human
-//= require game
+//= require game_factory
 

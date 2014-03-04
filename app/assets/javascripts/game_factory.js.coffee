@@ -1,8 +1,9 @@
-class @Game
+class @GameFactory
   constructor: ->
     @players = [new Computer, new Human]
     @first = 0
     @player_index = 0
+    @moves = []
 
     $('document').ready =>
       @loader = $('.loading').first().remove()
@@ -10,8 +11,6 @@ class @Game
         @start()
       $('.switch').click =>
         @switch_first()
-
-  moves: []
 
   player: ->
     @players[@player_index]
@@ -35,7 +34,7 @@ class @Game
     @switch_first()
 
   lockButtons: ->
-    $('.start, .switch').attr('disabled', true);
+    $('.start, .switch').attr('disabled', true)
     $('#cat td').html('')
     $('.alert').hide()
 
@@ -84,4 +83,4 @@ class @Game
   update_gif: ->
     $('.indicatorX, .indicatorO').html('')
 
-window.Game = new Game
+window.Game = new GameFactory
