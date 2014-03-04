@@ -8,13 +8,12 @@ class @Human extends Player
       $('#cat td').each (index, td)=>
         _td = $(td)
         _td.click (elem)=>
-          @done(_td, index + 1)
+          @done(index + 1)
 
-  done: (td , value)->
+  done: (value)->
     if @turn && value not in Game.moves
       @update_board(value)
       Game.switch_turn()
 
   play: ->
     @update_gif()
-
