@@ -3,9 +3,9 @@ Cat tic-tac-toe
 
 Cat is a tic-tac-toe game, player vs computer, but the computers, as you know, they're so smart, so computer always is going to win!!
 
-Try it [cat tic-tac-toe]
+Try it [cat tic-tac-toe](http://cat-tictactoe.herokuapp.com/)
 
-Why is it called cat
+Why is it called cat?
 --------------------
 
 Because in México we call this game "Gato", cat in English, why? I don't know.
@@ -28,7 +28,7 @@ Testing
 ```sh
 bundle exec rspec
 ```
-## Javscript
+## Javascript
 
 ### Prerequisites
 ```sh
