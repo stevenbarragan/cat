@@ -33,16 +33,33 @@ module Game
   end
 
   def win_paths
-    [
-      [1,2,3],
-      [4,5,6],
-      [7,8,9],
-      [1,4,7],
-      [2,5,8],
-      [3,6,9],
-      [1,5,9],
-      [3,5,7]
-    ]
+    @win_paths ||= calculate_win_paths
+  end
+
+  def calculate_win_paths
+    paths = []
+    base = (1..@size * @size).to_a
+
+    while base.present?
+      paths << base.shift(@size)
+    end
+
+    paths2 = paths.transpose
+
+    pos = @size - 1
+
+    paths3 = [[],[]]
+    pos1 = 0
+    pos2 = @size - 1
+
+    paths.each do |path|
+      paths3[0] << path[pos1]
+      paths3[1] << path[pos2]
+      pos1 += 1
+      pos2 -= 1
+    end
+
+    paths + paths2 + paths3
   end
 
   def draw?

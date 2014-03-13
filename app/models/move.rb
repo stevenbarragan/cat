@@ -2,10 +2,11 @@ class Move
   include Game
   attr_accessor :move, :score
 
-  def initialize(moves = [], score = nil)
+  def initialize(moves = [], score = nil, size = 3)
     @moves = moves
     @move  = @moves.last
     @score = score
+    @size = size
     @choices = []
   end
 

@@ -2,6 +2,10 @@ require 'spec_helper'
 
 class Dummy
   include Game
+
+  def initialize
+    @size = 3
+  end
 end
 
 describe Game do
@@ -82,6 +86,23 @@ describe Game do
       moves1, moves2 = subject.split_movements(path)
       expect(moves1).to eq [1,3,5,7,9]
       expect(moves2).to eq [2,4,6,8]
+    end
+  end
+
+  context '#calculate_win_paths' do
+    it 'returns 3x3 win paths' do
+      paths = [
+        [1,2,3],
+        [4,5,6],
+        [7,8,9],
+        [1,4,7],
+        [2,5,8],
+        [3,6,9],
+        [1,5,9],
+        [3,5,7]
+      ]
+
+      expect(subject.calculate_win_paths).to eq paths
     end
   end
 end
