@@ -3,6 +3,8 @@ require 'spec_helper'
 class Dummy
   include Game
 
+  attr_accessor :size
+
   def initialize
     @size = 3
   end
@@ -90,19 +92,44 @@ describe Game do
   end
 
   context '#calculate_win_paths' do
-    it 'returns 3x3 win paths' do
-      paths = [
-        [1,2,3],
-        [4,5,6],
-        [7,8,9],
-        [1,4,7],
-        [2,5,8],
-        [3,6,9],
-        [1,5,9],
-        [3,5,7]
-      ]
+    context 'with a 3x3 board' do
+      before do
+        subject.size = 3
+      end
 
-      expect(subject.calculate_win_paths).to eq paths
+      it 'returns 3x3 win paths' do
+        paths = [
+          [1,2,3],
+          [4,5,6],
+          [7,8,9],
+          [1,4,7],
+          [2,5,8],
+          [3,6,9],
+          [1,5,9],
+          [3,5,7]
+        ]
+
+        expect(subject.calculate_win_paths).to eq paths
+      end
+    end
+
+    context 'with a 2x2 board' do
+      before do
+        subject.size =  2
+      end
+
+      it 'returns 2x2 win paths' do
+        paths = [
+          [1,2],
+          [3,4],
+          [1,3],
+          [2,4],
+          [1,4],
+          [2,3]
+        ]
+
+        expect(subject.calculate_win_paths).to eq paths
+      end
     end
   end
 end

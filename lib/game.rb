@@ -38,7 +38,7 @@ module Game
 
   def calculate_win_paths
     paths = []
-    base = (1..@size * @size).to_a
+    base = (1..@size ** 2).to_a
 
     while base.present?
       paths << base.shift(@size)
