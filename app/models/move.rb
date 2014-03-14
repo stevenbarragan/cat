@@ -33,7 +33,7 @@ class Move
     else
       if @moves.empty?
         @choices = corners
-        return @choices.first.score
+        return @choices.sample.score
       end
 
       nexts = []

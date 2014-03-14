@@ -67,7 +67,7 @@ module Game
   end
 
   def available_moves
-    (1..9).to_a - @moves
+    (1..@last_move).to_a - @moves
   end
 
   def player_one_turn
