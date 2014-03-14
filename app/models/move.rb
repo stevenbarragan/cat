@@ -8,6 +8,7 @@ class Move
     @score = score
     @size = size
     @choices = []
+    @last_move = @size ** 2
   end
 
   def calculate_payers_path
@@ -19,7 +20,7 @@ class Move
   end
 
   def corners
-    [1,3,7,9].map{ |move| Move.new [move], 10 }
+    [1,@size, @last_move - @size + 1, @last_move ].map{ |move| Move.new [move], 10 }
   end
 
   def score
@@ -78,7 +79,7 @@ class Move
   def calculate_value_from_status
     case status
     when 1
-      10 - @moves.size + 1
+      @last_move - @moves.size + 2
     when 2
       - (@moves.size + 1)
     when 0
