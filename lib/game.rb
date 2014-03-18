@@ -63,7 +63,7 @@ module Game
   end
 
   def draw?
-    @moves.size == @size ** 2
+    @moves.size == @last_move
   end
 
   def available_moves

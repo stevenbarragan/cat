@@ -2,7 +2,7 @@ class Move
   include Game
   attr_accessor :move, :score
 
-  def initialize(moves = [], score = nil, size = 3)
+  def initialize(moves = [], size = 3, score = nil)
     @moves = moves
     @move  = @moves.last
     @score = score
@@ -20,14 +20,14 @@ class Move
   end
 
   def corners
-    [1,@size, @last_move - @size + 1, @last_move ].map{ |move| Move.new [move], 10 }
+    [1,@size, @last_move - @size + 1, @last_move ].map{ |move| Move.new [move], @size, @last_move }
   end
 
   def score
     @score ||= get_score
   end
 
-  def get_score
+  def get_score()
     if status
       calculate_value_from_status
     else
@@ -39,7 +39,7 @@ class Move
       nexts = []
 
       available_moves.each do |move|
-        nexts << Move.new(@moves + [move])
+        nexts << Move.new(@moves + [move], @size)
       end
 
       nexts.map &:score
@@ -94,9 +94,9 @@ class Move
   def calculate_value_from_status
     case status
     when 1
-      @last_move - @moves.size + 2
+      @last_move - @moves.size + 1
     when 2
-      - (@moves.size + 1)
+      @moves.size - @last_move - 1 
     when 0
       0
     end
