@@ -4,13 +4,7 @@ class @GameFactory
     @first = 0
     @player_index = 0
     @moves = []
-
-    $('document').ready =>
-      @loader = $('.loading').first().remove()
-      $('.start').click =>
-        @start()
-      $('.switch').click =>
-        @switch_first()
+    @size = 3
 
   player: ->
     @players[@player_index]
@@ -34,12 +28,12 @@ class @GameFactory
     @switch_first()
 
   lockButtons: ->
-    $('.start, .switch').attr('disabled', true)
+    $('.start, .switch, #board-size').attr('disabled', true)
     $('#cat td').html('')
     $('.alert').hide()
 
   unlockButtons: ->
-    $('.btn').removeAttr('disabled')
+    $('.btn, #board-size').removeAttr('disabled')
 
   process_status: (status, win_path)->
     if status?
@@ -64,7 +58,7 @@ class @GameFactory
   highlight_winning_path: (path, color)->
     if path
       for position in path
-        $("#cat td:eq(#{ position - 1})").css('color', color)
+        $("#cat td.size-#{ @size }:eq(#{ position - 1})").css('color', color)
 
   unhighliht_winning_path: ->
     $('#cat td').css('color', '#333' )
@@ -82,5 +76,10 @@ class @GameFactory
 
   update_gif: ->
     $('.indicatorX, .indicatorO').html('')
+
+  change_size: ->
+    Game.size = this.value
+    $('#cat tr, #cat td').hide()
+    $("#cat .size-#{ this.value }").show()
 
 window.Game = new GameFactory

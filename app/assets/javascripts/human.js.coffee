@@ -5,12 +5,21 @@ class @Human extends Player
 
   constructor: ->
     $('document').ready =>
-      $('#cat td').each (index, td)=>
-        _td = $(td)
-        _td.click (elem)=>
-          @done(index + 1)
+      $('#cat td.size-3').each (index, td)->
+        $(td).data('3', index + 1)
+
+      $('#cat td.size-4').each (index, td)->
+        $(td).data('4', index + 1)
+
+      $('#cat td.size-5').each (index, td)=>
+        $(td).data('5', index + 1)
+
+      $('#cat td').each (index, td)=> 
+        $(td).click =>
+          @done( $(td).data(Game.size + '') )
 
   done: (value)->
+    console.log( value )
     if @turn && value not in Game.moves
       @update_board(value)
       Game.switch_turn()

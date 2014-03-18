@@ -1,28 +1,19 @@
 #cat{
   margin: 10px;
+  width: 100%;
   tr td{
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     color: #333;
     font-weight: bold;
     font-size: 100px;
     text-align: center;
     cursor: pointer;
-  }
-  td:nth-child(2), tr:nth-child(2){
     border: 3px solid grey;
-  }
-  tr:nth-child(2){
-    border-left: none;
-    border-right: none
-  }
-  td:nth-child(2){
-    border-top: none;
-    border-bottom: none;
-  }
-  td:hover{
-    background-color: #f5f5f5;
-    border-color: #ddd;
+    &:hover{
+      background-color: #f5f5f5;
+      border-color: #ddd;
+    }
   }
 }
 .switch-wrapper{

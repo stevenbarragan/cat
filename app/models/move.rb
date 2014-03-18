@@ -44,13 +44,28 @@ class Move
 
       nexts.map &:score
 
-      if player_one_turn
-        move = nexts.max_by{ |move| move.score }
-      else
-        move = nexts.min_by{ |move| move.score }
-      end
+      move = nexts.shift
+      @choices = [move]
 
-      @choices = nexts.select{ |next_move| next_move.score == move.score }
+      if player_one_turn
+        nexts.each do |next_move|
+          if next_move.score > move.score
+            move = next_move
+            @choices = [move]
+          elsif next_move.score == move.score
+            @choices << next_move
+          end
+        end
+      else
+        nexts.each do |next_move|
+          if next_move.score < move.score
+            move = next_move
+            @choices = [move]
+          elsif next_move.score == move.score
+            @choices << next_move
+          end
+        end
+      end
 
       move.score
     end

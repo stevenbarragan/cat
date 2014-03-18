@@ -9,6 +9,7 @@ class @Computer extends Player
       @update_gif()
       $.post('/next_move',
         moves: Game.moves
+        size: Game.size
       ).done (data) =>
         @done(data.next)
         Game.process_status(data.status, data.win_path)

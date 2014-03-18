@@ -13,5 +13,5 @@ class @Player
 
   update_board: (pos)->
     Game.moves.push pos
-    $("#cat td:eq(#{pos - 1})").html(@char)
+    $("#cat td.size-#{ Game.size }:eq(#{pos - 1})").html(@char)
 

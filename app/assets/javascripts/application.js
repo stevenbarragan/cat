@@ -17,4 +17,5 @@
 //= require computer
 //= require human
 //= require game_factory
+//= require home
 

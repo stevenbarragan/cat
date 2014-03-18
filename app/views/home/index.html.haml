@@ -5,22 +5,21 @@
     .row
       %table#cat
         %tbody
-          %tr
-            %td
-            %td
-            %td
-          %tr
-            %td
-            %td
-            %td
-          %tr
-            %td
-            %td
-            %td
+          - (1..5).each do |x|
+            %tr{ class: 5.downto(x).to_a.map{ |s| "size-#{s}" }.join(' ') }
+              - (1..5).each do |y|
+                %td{ class: 5.downto(y).to_a.map{ |s| "size-#{s}" unless s < x }.join(' ') }
+
     .row.start-wrapper
       %button.btn.btn-warning.col-md-9.start
         %h1 Start game
   .col-md-6
+    .row.switch-row
+      .col-md-3.switch-wrapper
+        %select#board-size.form-control
+          %option{ value: 3} 3x3
+          %option{ value: 4} 4x4
+          %option{ value: 5} 5x5
     .row.switch-row
       .col-md-3.switch-wrapper
         %button.switch.btn.btn-default Switch player
