@@ -23,55 +23,74 @@ class Move
     [1,@size, @last_move - @size + 1, @last_move ].map{ |move| Move.new [move], @size, @last_move }
   end
 
+  def next
+    moves = available_moves.map do |move|
+      Move.new(@moves + [move], @size)
+    end
+
+    moves.map &:score
+
+    @choices = [moves.shift]
+
+    score = @choices.last.score
+
+    moves.each do |move|
+      if player_one_turn
+        if move.score > score
+          @choices = [move]
+          score = move.score
+        elsif move.score == score
+          @choices << move
+        end
+      else
+        if move.score < score
+          @choices = [move]
+          score = move.score
+        elsif move.score == score
+          @choices << move
+        end
+      end
+    end
+
+    @moves << @choices.sample.move
+    @moves.last
+  end
+
   def score
     @score ||= get_score
   end
 
-  def get_score()
+  def get_score(alpha = - @last_move - 1, beta = @last_move + 1)
     if status
       calculate_value_from_status
     else
-      if @moves.empty?
-        @choices = corners
-        return @choices.sample.score
-      end
-
       nexts = []
 
-      available_moves.each do |move|
-        nexts << Move.new(@moves + [move], @size)
-      end
-
-      nexts.map &:score
-
-      move = nexts.shift
-      @choices = [move]
-
       if player_one_turn
-        nexts.each do |next_move|
-          if next_move.score > move.score
-            move = next_move
-            @choices = [move]
-          elsif next_move.score == move.score
-            @choices << next_move
-          end
-        end
-      else
-        nexts.each do |next_move|
-          if next_move.score < move.score
-            move = next_move
-            @choices = [move]
-          elsif next_move.score == move.score
-            @choices << next_move
-          end
-        end
-      end
+        available_moves.each do |move|
+          new_move = Move.new(@moves + [move], @size) 
+          score = new_move.get_score( alpha, beta )
 
-      move.score
+          alpha = score if score > alpha
+          return alpha if alpha >= beta
+        end
+
+        return alpha
+      else
+        available_moves.each do |move|
+          new_move = Move.new(@moves + [move], @size) 
+          score = new_move.get_score( alpha, beta)
+
+          beta = score if score < beta
+          return beta if alpha >= beta
+        end
+
+        return beta
+      end
     end
   end
 
-  def next
+  def nextx
     if score
       random = @choices.sample
       if random

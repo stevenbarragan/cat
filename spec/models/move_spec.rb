@@ -14,14 +14,6 @@ describe Move do
       end
 
       context 'second move' do
-        let(:moves){ [1] }
-
-        it 'choose center' do
-          expect(subject.next).to eq 5
-        end
-      end
-
-      context 'second move' do
         let(:moves){ [1,5,9,7] }
 
         it 'returns corner to make a fork' do
@@ -53,18 +45,6 @@ describe Move do
         end
       end
     end
-
-#     context 'in a 4x4 board' do
-#       context 'it blocks if opposite is about to win' do
-#         let(:subject){ described_class.new moves, 4 }
-#
-#         let(:moves){ [1,2,6,3,11] }
-#
-#         it 'blocks wining' do
-#           expect(subject.next).to eq 16
-#         end
-#       end
-#     end
   end
 
   context '#status' do
